@@ -78,3 +78,5 @@ class PostcodeHandler: NSObject, WKScriptMessageHandler {
 ## 라이선스
 
 이 소스코드 저장소에 속한 코드는 MIT 라이선스를 따릅니다. 다음 우편번호 서비스와 관련한 소유권과 저작권은 카카오에 있습니다.
+
+로딩 인디케이터의 애니메이션은 [react-native-web](https://github.com/necolas/react-native-web)의 것을 사용했습니다.

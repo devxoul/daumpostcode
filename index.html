@@ -5,11 +5,31 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <style>
     html, body { margin: 0; padding: 0; height: 100%; }
-    #container { width: 100%; height: 100%; }
+    #container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    #activity-indicator {
+      animation: rotate linear infinite 0.75s;
+    }
   </style>
 </head>
 <body onLoad="init()">
-  <div id="container"></div>
+  <div id="container">
+    <svg id="activity-indicator" width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke:#878E95;opacity:0.2">
+      </circle>
+      <circle cx="16" cy="16" fill="none" r="14" stroke-width="4" style="stroke:#878E95;stroke-dasharray:80;stroke-dashoffset:60">
+      </circle>
+    </svg>
+  </div>
   <script>
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
