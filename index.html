@@ -15,6 +15,12 @@
     const params = Object.fromEntries(urlSearchParams.entries());
     const { query = undefined, ...daumPostcodeOptions } = params;
 
+    // 속성에 컬백 함수를 전달할 수 없게 함
+    delete daumPostcodeOptions['oncomplete'];
+    delete daumPostcodeOptions['onresize'];
+    delete daumPostcodeOptions['onclose'];
+    delete daumPostcodeOptions['onsearch'];
+
     // TODO: 이벤트 핸들러 작성
     const onComplete = console.log
 
