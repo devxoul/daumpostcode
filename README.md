@@ -75,6 +75,46 @@ class PostcodeHandler: NSObject, WKScriptMessageHandler {
 }
 ```
 
+### React Native
+
+#### URL Scheme
+
+```tsx
+const parseQueryParams = () => {
+  const search = path.split('?')[1]
+  if (!search) {
+    return {}
+  }
+
+  let params: Record<string, string> = {}
+
+  const items = search.split('&')
+  items.forEach((item) => {
+    const [key, value] = item.split('=')
+    params[key] = decodeURIComponent(value)
+  })
+  return params
+}
+
+const PostcodeSearchScreen = () => (
+  <WebView
+    originWhitelist={['https://*', 'http://*', 'postcode://*']}
+    source={{ uri: 'https://postcode.pocketlesson.io' }}
+    startInLoadingState={true}
+    onShouldStartLoadWithRequest={(request) => {
+      if (request.url.startsWith('postcode://')) {
+        const data = parseQueryParams(request.url)
+
+        console.log(data?.address) // e.g. 서울 강남구 역삼로 180
+        console.log(data?.zonecode) // e.g. 06248
+        return false
+      }
+      return true
+    }}
+  />
+)
+```
+
 ## 라이선스
 
 이 소스코드 저장소에 속한 코드는 MIT 라이선스를 따릅니다. 다음 우편번호 서비스와 관련한 소유권과 저작권은 카카오에 있습니다.
