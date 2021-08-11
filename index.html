@@ -22,10 +22,13 @@
     delete daumPostcodeOptions['onsearch'];
 
     const onComplete = (data) => {
-      // TODO: 값이 존재하지 않는 파라미터를 전달하지 않도록 함
-      const queryParameters = Object.keys(data).map((key) =>
-        `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-      ).join('&');
+      const queryParameters = Object.keys(data).reduce((parameters, key) => {
+        const param = data[key]
+        if (param) {
+          parameters.push(`${encodeURIComponent(key)}=${encodeURIComponent(param)}`)
+        }
+        return parameters
+      }, []).join('&');
       window.location.href = `postcode://complete?${queryParameters}`;
 
       // TODO: 메시지 핸들러 존재 여부 확인
