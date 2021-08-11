@@ -31,7 +31,18 @@
       }, []).join('&');
       window.location.href = `postcode://complete?${queryParameters}`;
 
-      // TODO: 메시지 핸들러 존재 여부 확인
+      if (!window.webkit) {
+        return
+      }
+      if (!window.webkit.messageHandlers) {
+        return
+      }
+      if (!window.webkit.messageHandlers.postcode) {
+        return
+      }
+      if (typeof window.webkit.messageHandlers.postcode.postMessage !== 'function') {
+        return
+      }
       window.webkit.messageHandlers.postcode.postMessage(data)
     }
 
