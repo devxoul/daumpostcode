@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; }
+    #container { width: 100%; height: 100%; }
+  </style>
+</head>
+<body onLoad="init()">
+  <div id="container"></div>
+  <script>
+    let daumPostcodeOptions = {}
+
+    // TODO: 이벤트 핸들러 작성
+    const onComplete = console.log
+
+    const onScriptLoad = () => {
+      const webviewLayer = document.getElementById('container')
+      webviewLayer.innerHTML = ''
+
+      new daum.Postcode({
+        ...daumPostcodeOptions,
+        onsearch: () => window.scrollTo(0, 0),
+        oncomplete: (data) => onComplete(data),
+        width: '100%',
+        height: '100%',
+      }).embed(webviewLayer);
+    }
+
+    const init = (options) => {
+      daumPostcodeOptions = options
+
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
+      script.async = true
+      script.onload = onScriptLoad
+
+      document.body.appendChild(script)
+    }
+  </script>
+</body>
+</html>
