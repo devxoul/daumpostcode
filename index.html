@@ -58,6 +58,9 @@
         ...daumPostcodeOptions,
       }).embed(webviewLayer, {
         q: query,
+
+        // 선택 후에 자동으로 레이어가 닫히지 않도록 함
+        autoClose: false,
       });
     }
 
