@@ -21,8 +21,16 @@
     delete daumPostcodeOptions['onclose'];
     delete daumPostcodeOptions['onsearch'];
 
-    // TODO: 이벤트 핸들러 작성
-    const onComplete = console.log
+    const onComplete = (data) => {
+      // TODO: 값이 존재하지 않는 파라미터를 전달하지 않도록 함
+      const queryParameters = Object.keys(data).map((key) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
+      ).join('&');
+      window.location.href = `postcode://complete?${queryParameters}`;
+
+      // TODO: 메시지 핸들러 존재 여부 확인
+      window.webkit.messageHandlers.postcode.postMessage(data)
+    }
 
     const onScriptLoad = () => {
       const webviewLayer = document.getElementById('container')
@@ -30,7 +38,7 @@
 
       new daum.Postcode({
         onsearch: () => window.scrollTo(0, 0),
-        oncomplete: (data) => onComplete(data),
+        oncomplete: onComplete,
         width: '100%',
         height: '100%',
         ...daumPostcodeOptions,
